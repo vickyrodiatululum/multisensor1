@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- sweetalert --}}
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
     {{-- jquery --}}
     <script type="text/javascript" src="jquery/jquery.min.js"></script>
 
@@ -29,8 +32,8 @@
 
         <!-- Page Heading -->
         @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="pt-2">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-white shadow rounded-md">
                     {{ $header }}
                 </div>
             </header>
@@ -49,6 +52,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
+    {{-- chart apex --}}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {{-- sweetalert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    @if (session('added'))
+        Swal.fire({
+            title: "berhasil",
+            text: "Data Berhasil Ditambahkan",
+            icon: "success"
+        });
+    @endif
+</script>
 </body>
 
 </html>
