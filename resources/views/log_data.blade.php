@@ -78,7 +78,7 @@
                         </x-modal>
                     </div>
                 </div>
-                <div class="card mx-auto max-h-80 overflow-auto mb-4">
+                <div class="card mx-auto max-h-46 overflow-auto mb-4">
                     <x-train-table :trainData="$data['train']" :trainName="$data['name']" />
                 </div>
             @endforeach

@@ -100,13 +100,15 @@ class Log_dataController extends Controller
 
         public function getChartData()
         {
-            $sensor = Sensor::all();
-            $train2Data = [80, 40, 45, 50, 49, 60, 70, 91, 125, 190];
-            $train3aData = [50, 40, 45, 50, 49, 70, 90, 80, 145, 140];
-            $train3bData = [30, 40, 45, 50, 49, 70, 90, 70, 185, 120];
-            $train4Data = [10, 40, 45, 50, 49, 70, 50, 90, 155, 180];
+            $train2Data = Sensor::pluck('train1');
+            $train3aData = Sensor::pluck('train2');
+            $train3bData = Sensor::pluck('train3');
+            $train4Data = Sensor::pluck('train4');
 
-            $categories = [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 30];
+            $categories = Sensor::all()->map(function ($train) {
+                $train->time_only = Carbon::parse($train->created_at)->format('H:i:s');
+                return $train->time_only;
+            });
 
             return response()->json([
                 'train2' => $train2Data,
