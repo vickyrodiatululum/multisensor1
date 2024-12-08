@@ -27,6 +27,7 @@ return new class extends Migration
             $table->float('lampu_uv');
             $table->float('voltase');
             $table->float('ampere');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

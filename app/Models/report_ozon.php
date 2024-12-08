@@ -21,5 +21,10 @@ class report_ozon extends Model
         'lampu_uv',
         'voltase',
         'ampere',
+        'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

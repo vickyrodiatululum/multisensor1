@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function report_ozon(){
+        return $this->hasMany(report_ozon::class);
+    }
+
+    public function LampuUV(){
+        return $this->hasMany(LampuUV::class);
+    }
 }

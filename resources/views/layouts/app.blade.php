@@ -12,11 +12,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- icon awesome --}}
+    <link rel="stylesheet" href="{{ asset('fontawesome-free-6.6.0-web/css/all.min.css') }}">
+    
     {{-- sweetalert --}}
+    <script src="sweetalert2.min.js"></script>
     <link rel="stylesheet" href="sweetalert2.min.css">
 
     {{-- jquery --}}
-    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     {{-- bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -58,14 +62,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    @if (session('added'))
-        Swal.fire({
-            title: "berhasil",
-            text: "Data Berhasil Ditambahkan",
-            icon: "success"
-        });
-    @endif
-</script>
+        @if (session('added'))
+            Swal.fire({
+                title: "berhasil",
+                text: "Data Berhasil Disimpan",
+                icon: "success"
+            });
+        @endif
+    </script>
+
 </body>
 
 </html>

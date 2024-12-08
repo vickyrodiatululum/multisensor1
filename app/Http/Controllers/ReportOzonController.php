@@ -20,7 +20,7 @@ class ReportOzonController extends Controller
         return view('report', ['latestReports' => $latestReports]);
     }   
     public function store(Request $request) {
-        $validate = $request->validate([
+        $request->validate([
             'train' => 'required',
             'pompa_pre_ozon' => 'required',
             'pompa_transfer' => 'required', 
@@ -51,7 +51,23 @@ class ReportOzonController extends Controller
             'ampere.required' => 'Ampere Harus Diisi',
         ]);
         
-        report_ozon::create($validate);
+        report_ozon::create([
+            'train' => $request->train,
+            'pompa_pre_ozon' => $request->pompa_pre_ozon,
+            'pompa_transfer' => $request->pompa_transfer, 
+            'step' => $request->step,
+            'kadar_ozon_static' => $request->kadar_ozon_static,
+            'kadar_ozon_ft' => $request->kadar_ozon_ft,
+            'kadar_ozon_analyzer' => $request->kadar_ozon_analyzer,
+            'airflow' => $request->airflow,
+            'cooling_water' => $request->cooling_water,
+            'set_level_ft_middle' => $request->set_level_ft_middle,
+            'set_level_ft_high' => $request->set_level_ft_high,
+            'lampu_uv' => $request->lampu_uv,
+            'voltase' => $request->voltase,
+            'ampere' => $request->ampere,
+            'user_id' => auth()->id(),
+        ]);
         return redirect()->route('report.index')->with('added', true);
     }
 
