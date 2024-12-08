@@ -7,16 +7,13 @@ use App\Http\Controllers\ReportOzonController;
 use App\Http\Controllers\Log_dataController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Route::get('/log_data', function () {
 //     return view('log_data');
 // })->middleware(['auth', 'verified'])->name('log_data');
 
 Route::middleware('auth')->group(function (){
-    Route::get('/dashboard', [SensorController::class, 'index'])->name('dashboard');
+    Route::get('/', [SensorController::class, 'index'])->name('dashboard');
     Route::get('/get-train/{train}', [SensorController::class, 'getTrainData']);
 });
 
