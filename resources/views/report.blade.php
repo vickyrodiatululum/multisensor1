@@ -25,7 +25,7 @@
                                     <x-input-label for="train" :value="__('Train')" />
                                     <select id="train" name="train" type="number" step="any"
                                         class="mt-1 block rounded-md border-gray-300  focus:border-indigo-500 focus:ring-indigo-500 shadow-sm w-full"
-                                        :value="old('train')" required autofocus>
+                                        required autofocus>
                                         <option value="1">Train 1</option>
                                         <option value="2">Train 2</option>
                                         <option value="3">Train 3</option>

@@ -55,6 +55,10 @@ class Log_dataController extends Controller
             ['name' => 'Train 3', 'latestLampu' => $latestLampu3, 'train' => $train3],
             ['name' => 'Train 4', 'latestLampu' => $latestLampu4, 'train' => $train4],
         ];
+        $date = now()->format('Y-m-d');
+
+        $data = Sensor::whereDate('created_at', $date)->get();
+        // dd($data);
 
         // Mengirim data ke view 'log_data'
         return view('log_data', compact('dataTrains'));
@@ -98,7 +102,7 @@ class Log_dataController extends Controller
     }
 
 
-        public function getChartData()
+        public function getChartDataa()
         {
             $train2Data = Sensor::pluck('train1');
             $train3aData = Sensor::pluck('train2');
@@ -118,4 +122,21 @@ class Log_dataController extends Controller
                 'categories' => $categories
             ]);
         }
+
+    public function getChartData(Request $request)
+    {
+        $date = $request->input('date', now()->format('Y-m-d'));
+
+        $data = Sensor::whereDate('created_at', $date)->get();
+
+        return response()->json([
+            'train2' => $data->pluck('train1'),
+            'train3a' => $data->pluck('train2'),
+            'train3b' => $data->pluck('train3'),
+            'train4' => $data->pluck('train4'),
+            'categories' => $data->pluck('created_at')->map(function ($item) {
+                return \Carbon\Carbon::parse($item)->format('H:i:s');
+            }),
+        ]);
+    }
 }

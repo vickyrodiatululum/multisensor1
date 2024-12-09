@@ -5,7 +5,9 @@
         </h2>
     </x-slot>
     <div class="bg-white rounded max-w-7xl mx-auto p-2 mt-2 shadow">
-        <div id="chart" class="w-full"></div>
+        <div class="flex justify-end mb-2">
+            <x-text-input id="filter-date" name="filter-date" type="date" value="{{ now()->format('Y-m-d') }}"></x-text-input>
+        </div>
         <div id="char" class="w-full"></div>
     </div>
     <div class="bg-white rounded max-w-7xl mx-auto p-4 mt-2 shadow">
@@ -28,7 +30,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="mx-auto p-2">
+                    <div class="mx-auto mb-2">
                         <x-primary-button x-data=""
                             x-on:click="$dispatch('open-modal', 'change-{{ Str::slug($data['name']) }}')">
                             Ganti lampu
@@ -78,7 +80,7 @@
                         </x-modal>
                     </div>
                 </div>
-                <div class="card mx-auto max-h-46 overflow-auto mb-4">
+                <div class="card mx-auto h-60 overflow-auto mb-4">
                     <x-train-table :trainData="$data['train']" :trainName="$data['name']" />
                 </div>
             @endforeach
@@ -100,29 +102,19 @@
     var chart = new ApexCharts(document.querySelector("#char"), options);
     chart.render();
 
-    // Fungsi untuk mengambil data dari server dan memperbarui chart
-    function fetchDataAndUpdateChart() {
+    // Fungsi untuk mengambil data dari server berdasarkan tanggal dan memperbarui chart
+    function fetchDataAndUpdateChart(date) {
         $.ajax({
             url: '/chart-data',
             method: 'GET',
+            data: { date: date },
             success: function(response) {
                 chart.updateOptions({
-                    series: [{
-                            name: 'Train 2',
-                            data: response.train2
-                        },
-                        {
-                            name: 'Train 3a',
-                            data: response.train3a
-                        },
-                        {
-                            name: 'Train 3b',
-                            data: response.train3b
-                        },
-                        {
-                            name: 'Train 4',
-                            data: response.train4
-                        }
+                    series: [
+                        { name: 'Train 2', data: response.train2 },
+                        { name: 'Train 3a', data: response.train3a },
+                        { name: 'Train 3b', data: response.train3b },
+                        { name: 'Train 4', data: response.train4 }
                     ],
                     xaxis: {
                         categories: response.categories
@@ -135,10 +127,13 @@
         });
     }
 
-    // Muat data pertama kali
-    fetchDataAndUpdateChart();
+    // Jalankan fungsi saat halaman pertama kali dimuat dengan tanggal default
+    fetchDataAndUpdateChart($('#filter-date').val());
 
-    // Perbarui data setiap 5 detik (5000 ms)
-    setInterval(fetchDataAndUpdateChart, 5000);
+    // Event untuk memuat ulang chart ketika tanggal dipilih
+    $('#filter-date').on('change', function () {
+        let selectedDate = $(this).val();
+        fetchDataAndUpdateChart(selectedDate);
+    });
 </script>
 
