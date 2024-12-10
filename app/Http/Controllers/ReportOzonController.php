@@ -14,10 +14,20 @@ class ReportOzonController extends Controller
         for ($train = 1; $train <= 4; $train++) {
             $latestReports[$train] = report_ozon::where('train', $train)->latest()->first();
         }
-        // dd($latestReports);
+        // $dataReports = []; 
+        // for ($train = 1; $train <= 4; $train++) {
+        //     $dataReports[$train] = report_ozon::where('train', $train)->get();
+        // }
+        $dataReports = report_ozon::whereIn('train', [1, 2, 3, 4])
+        ->get()
+        ->groupBy('train');
+
 
         // Return ke view dengan data laporan
-        return view('report', ['latestReports' => $latestReports]);
+        return view('report', [
+            'latestReports' => $latestReports,
+            'dataReports' => $dataReports
+        ]);
     }   
     public function store(Request $request) {
         $request->validate([

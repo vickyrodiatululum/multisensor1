@@ -133,97 +133,160 @@
 
                     </x-modal>
 
-                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 mt-4">
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 my-4">
                         @foreach ($latestReports as $train => $report)
-                            {{-- <tr>
-                                <td>Train {{ $train }}</td>
-                                <td>
-                                    @if ($report)
-                                        {{ $report->pompa_pre_ozon }} - {{ $report->created_at }}
-                                    @else
-                                        Tidak ada data.
-                                    @endif
-                                </td>
-                            </tr> --}}
-
-
                             <div class=" card mb-3">
                                 <div class="card-header">
                                     <div class="flex justify-between">
                                         <div>train {{ $train }}</div>
                                     </div>
                                 </div>
+
                                 <div class="card-body relative">
-                                    @if ($report)
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->pompa_pre_ozon }}<span class="text-sm absolute">%</span></h2>
-                                        <h1>Setingan Pompa pre ozon</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->pompa_transfer }}<span class="text-sm absolute">%</span></h2>
-                                        <h1>Setingan Pompa Transfer</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->step }}</h2>
-                                        <h1>Step</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_static }}<span class="text-sm absolute">ppm</span>
-                                        </h2>
-                                        <h1>kadar Ozon Static Mixer</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_ft }}<span class="text-sm absolute">ppm</span>
-                                        </h2>
-                                        <h1>Kadar Ozon FT</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_analyzer }}<span class="text-sm absolute">mg/I</span>
-                                        </h2>
-                                        <h1>Kadar Ozon Analyzer</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->airflow }}<span class="text-sm absolute">m3/h</span>
-                                        </h2>
-                                        <h1>Air Flow</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->cooling_water }}<span class="text-sm absolute">L/H</span>
-                                        </h2>
-                                        <h1>Cooling Water</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <div class="flex gap-2">
-                                            <div class="middle">
-                                                <h2 class="font-bold text-3xl">{{ $report->set_level_ft_middle }}</h2>
-                                                <p class="text-xs font-bold">Middle</p>
+                                        @if ($report)
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->pompa_pre_ozon }}<span
+                                                        class="text-sm absolute">%</span></h2>
+                                                <h1>Setingan Pompa pre ozon</h1>
                                             </div>
-                                            <div class="High">
-                                                <h2 class="font-bold text-3xl">{{ $report->set_level_ft_high }}</h2>
-                                                <p class="text-xs font-bold">High</p>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->pompa_transfer }}<span
+                                                        class="text-sm absolute">%</span></h2>
+                                                <h1>Setingan Pompa Transfer</h1>
                                             </div>
-                                        </div>
-                                        <h1>Set Level FT</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->lampu_uv }}<span class="text-sm absolute"></span></h2>
-                                        <h1>Lampu UV</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->voltase }}<span class="text-sm absolute">volt</span>
-                                        </h2>
-                                        <h1>Voltase</h1>
-                                    </div>
-                                    <div class="mb-2">
-                                        <h2 class="font-bold text-3xl">{{ $report->ampere }}<span class="text-sm absolute">A</span></h2>
-                                        <h1>Ampere</h1>
-                                    </div>
-                                    @else
-                                    <h2 class="text-center">Tidak Ada Report</h2>
-                                    @endif
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->step }}</h2>
+                                                <h1>Step</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_static }}<span
+                                                        class="text-sm absolute">ppm</span>
+                                                </h2>
+                                                <h1>kadar Ozon Static Mixer</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_ft }}<span
+                                                        class="text-sm absolute">ppm</span>
+                                                </h2>
+                                                <h1>Kadar Ozon FT</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->kadar_ozon_analyzer }}<span
+                                                        class="text-sm absolute">mg/I</span>
+                                                </h2>
+                                                <h1>Kadar Ozon Analyzer</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->airflow }}<span
+                                                        class="text-sm absolute">m3/h</span>
+                                                </h2>
+                                                <h1>Air Flow</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->cooling_water }}<span
+                                                        class="text-sm absolute">L/H</span>
+                                                </h2>
+                                                <h1>Cooling Water</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <div class="flex gap-2">
+                                                    <div class="middle">
+                                                        <h2 class="font-bold text-3xl">
+                                                            {{ $report->set_level_ft_middle }}
+                                                        </h2>
+                                                        <p class="text-xs font-bold">Middle</p>
+                                                    </div>
+                                                    <div class="High">
+                                                        <h2 class="font-bold text-3xl">
+                                                            {{ $report->set_level_ft_high }}
+                                                        </h2>
+                                                        <p class="text-xs font-bold">High</p>
+                                                    </div>
+                                                </div>
+                                                <h1>Set Level FT</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->lampu_uv }}<span
+                                                        class="text-sm absolute"></span></h2>
+                                                <h1>Lampu UV</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->voltase }}<span
+                                                        class="text-sm absolute">volt</span>
+                                                </h2>
+                                                <h1>Voltase</h1>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h2 class="font-bold text-3xl">{{ $report->ampere }}<span
+                                                        class="text-sm absolute">A</span></h2>
+                                                <h1>Ampere</h1>
+                                            </div>
+                                        @else
+                                            <h2 class="text-center">Tidak Ada Report</h2>
+                                        @endif
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div class="log_report">
+                        <h1 class="font-bold text-xl mb-4">
+                            Log Report
+                        </h1>
+                        @if ($dataReports && $dataReports->isNotEmpty())
+                            @foreach ($dataReports as $train => $reports)
+                                <div class="train mb-4">
+                                    <h2 class="font-semibold text-xl">Tabel Report Train {{ $train }}</h2>
+                                    <div class="table-responsive w-full rounded-md border shadow">
+                                        <table class="table table-hover text-center">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th rowspan="2">Tanggal & Waktu</th>
+                                                    <th rowspan="2">Setingan Pompa pre ozon</th>
+                                                    <th rowspan="2">Setingan Pompa Transfer</th>
+                                                    <th rowspan="2">Step</th>
+                                                    <th rowspan="2">kadar Ozon Static Mixer</th>
+                                                    <th rowspan="2">Kadar Ozon FT</th>
+                                                    <th rowspan="2">Kadar Ozon Analyzer</th>
+                                                    <th rowspan="2">Air Flow</th>
+                                                    <th colspan="2">Cooling Water</th>
+                                                    <th rowspan="2">Set Level FT</th>
+                                                    <th rowspan="2">Lampu UV</th>
+                                                    <th rowspan="2">Voltase</th>
+                                                    <th rowspan="2">Ampere</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Middle</th>
+                                                    <th>High</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($reports as $report)
+                                                    <tr>
+                                                        <th>{{ $report->created_at }}</th>
+                                                        <td>{{ $report->pompa_pre_ozon }}</td>
+                                                        <td>{{ $report->pompa_transfer }}</td>
+                                                        <td>{{ $report->step }}</td>
+                                                        <td>{{ $report->kadar_ozon_static }}</td>
+                                                        <td>{{ $report->kadar_ozon_ft }}</td>
+                                                        <td>{{ $report->kadar_ozon_analyzer }}</td>
+                                                        <td>{{ $report->airflow }}</td>
+                                                        <td>{{ $report->cooling_water }}</td>
+                                                        <td>{{ $report->set_level_ft_middle }}</td>
+                                                        <td>{{ $report->set_level_ft_high }}</td>
+                                                        <td>{{ $report->lampu_uv }}</td>
+                                                        <td>{{ $report->voltase }}</td>
+                                                        <td>{{ $report->ampere }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endforeach                            
+                        @else
+                            <h2 class="text-center">Tidak Ada Log Report</h2>
+                        @endif
                     </div>
                 </div>
             </div>

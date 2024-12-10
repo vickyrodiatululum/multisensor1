@@ -1,20 +1,15 @@
 <?php
 
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReportOzonController;
 use App\Http\Controllers\Log_dataController;
-
-
-
-// Route::get('/log_data', function () {
-//     return view('log_data');
-// })->middleware(['auth', 'verified'])->name('log_data');
+use App\Http\Controllers\ReportOzonController;
 
 Route::middleware('auth')->group(function (){
     Route::get('/', [SensorController::class, 'index'])->name('dashboard');
-    Route::get('/get-train/{train}', [SensorController::class, 'getTrainData']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -32,5 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/log_data/{train}', [Log_dataController::class, 'store'])->name('log_data.train');
     Route::get('/chart-data', [Log_dataController::class, 'getChartData']);
 });
+Route::middleware([IsAdmin::class])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::post('/admin/create', [AdminController::class, 'store'])->name('admin.store');
+});
+
 
 require __DIR__.'/auth.php';

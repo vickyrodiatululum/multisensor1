@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
         'name',
         'email',
         'password',
@@ -48,9 +49,5 @@ class User extends Authenticatable
 
     public function report_ozon(){
         return $this->hasMany(report_ozon::class);
-    }
-
-    public function LampuUV(){
-        return $this->hasMany(LampuUV::class);
     }
 }

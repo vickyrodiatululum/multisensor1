@@ -1,37 +1,37 @@
 <x-app-layout>
     <div class="container" style="text-align: center; margin-top:50px">
-        <h2>Monitoring Intensitas Lampu UV <br> secara real time</h2>
-        <div class="grid grid-cols-4 gap-3">
+        <h2 class="font-bold text-3xl">Monitoring Intensitas Lampu UV <br> Secara Real Time</h2>
+        <div class="grid grid-cols-4 gap-3 text my-4">
             <div class="card">
                 <div class="card-header" style="font: size 30px;font-weight:bold">
-                    train 1
+                    Train 1
                 </div>
                 <div class="card-body">
-                    <h1><span id = "train1">{{ $latesTrain1 }}</span> </h1>
+                    <h1 class="font-bold text-3xl"><span id = "train1">{{ $latesTrain1 }}</span> </h1>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" style="font: size 30px;font-weight:bold">
-                    train 2
+                    Train 2
                 </div>
                 <div class="card-body">
-                    <h1><span id = "train2">{{ $latesTrain2 }}</span> </h1>
+                    <h1 class="font-bold text-3xl"><span id = "train2">{{ $latesTrain2 }}</span> </h1>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" style="font: size 30px;font-weight:bold">
-                    train 3
+                    Train 3
                 </div>
                 <div class="card-body">
-                    <h1><span id = "train3">{{ $latesTrain3 }}</span> </h1>
+                    <h1 class="font-bold text-3xl"><span id = "train3">{{ $latesTrain3 }}</span> </h1>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" style="font: size 30px;font-weight:bold">
-                    train 4
+                    Train 4
                 </div>
                 <div class="card-body">
-                    <h1><span id = "train4">{{ $latesTrain4 }}</span> </h1>
+                    <h1 class="font-bold text-3xl"><span id = "train4">{{ $latesTrain4 }}</span> </h1>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sensor;
 use Illuminate\Http\Request;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class SensorController extends Controller
 {
@@ -30,18 +31,21 @@ class SensorController extends Controller
             'train4' => 'required|numeric',
         ]);
 
+
+        if ($validated['train1'] <= 80 || $validated['train2'] <= 80 || $validated['train3'] <= 80 || $validated['train4'] <= 80) {
+                $chatId = '1331899906'; // Replace with your chat ID
+                $message = '⚠️ Peringatan: ' . $validated['train1'] . ' - ' . $validated['train2'] . ' - ' . $validated['train3'] . ' - ' . $validated['train4'];
+
+                Telegram::sendMessage([
+                    'chat_id' => $chatId,
+                    'text' => $message,
+                ]);
+        }
+
         // Simpan ke database
         Sensor::create($validated);
 
         return response()->json(['message' => 'Data berhasil diterima'], 200);
     }
-
-    public function getTrainData($train)
-    {
-        $data = Sensor::orderBy('id', 'desc')->value("train{$train}") ?? 0;
-
-        return response()->json(['train' => $data]);
-    }
-
 
 }
