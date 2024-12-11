@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sensor;
+use App\Models\ToggelSensor;
 use Illuminate\Http\Request;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -11,15 +12,16 @@ class SensorController extends Controller
     public function index()
     {
         // Ambil data terakhir untuk setiap train
-        $latesTrain1 = Sensor::orderBy('id', 'desc')->value('train1');
-        $latesTrain2 = Sensor::orderBy('id', 'desc')->value('train2') ?? 0;
-        $latesTrain3 = Sensor::orderBy('id', 'desc')->value('train3') ?? 0;
-        $latesTrain4 = Sensor::orderBy('id', 'desc')->value('train4') ?? 0;
-        $cekdb = Sensor::all();
-        
-        // dd($latesTrain1, $latesTrain2, $latesTrain3, $latesTrain4 );
+        $latesTrains = Sensor::orderBy('id', 'desc')->first();
+        $trainData = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $trainData[$i] = [
+                'latest' => $latesTrains->{'train' . $i} ?? 0,
+                'status' => ToggelSensor::where('train', $i)->value('status') ?? 0,
+            ];
+        }
+        return view('dashboard', compact('trainData'));
 
-        return view('dashboard', compact('latesTrain1', 'latesTrain2', 'latesTrain3', 'latesTrain4'));
     }
 
     public function store(Request $request)
@@ -31,21 +33,49 @@ class SensorController extends Controller
             'train4' => 'required|numeric',
         ]);
 
+        $status1 = ToggelSensor::where('train', 1)->value('status');
+        $status2 = ToggelSensor::where('train', 2)->value('status');
+        $status3 = ToggelSensor::where('train', 3)->value('status');
+        $status4 = ToggelSensor::where('train', 4)->value('status');
 
-        if ($validated['train1'] <= 80 || $validated['train2'] <= 80 || $validated['train3'] <= 80 || $validated['train4'] <= 80) {
-                $chatId = '1331899906'; // Replace with your chat ID
-                $message = '⚠️ Peringatan: ' . $validated['train1'] . ' - ' . $validated['train2'] . ' - ' . $validated['train3'] . ' - ' . $validated['train4'];
-
-                Telegram::sendMessage([
-                    'chat_id' => $chatId,
-                    'text' => $message,
-                ]);
+        if ($status1 == 1 && $validated['train1'] <=80 || $status2 == 1 && $validated['train2'] <=80 || $status3 == 1 && $validated['train3'] <=80 || $status4 == 1 && $validated['train4'] <=80) {
+            $chatId = '1331899906'; // Replace with your chat ID
+            $message = '⚠️ Peringatan: Intensitas lampu ' . $validated['train1'] .' - ' . $validated['train2'] . ' - ' . $validated['train3'] . ' - ' . $validated['train4'] . ' Segera lakukan perbaikan!';
+            Telegram::sendMessage(['chat_id' => $chatId, 'text' => $message]);
         }
 
         // Simpan ke database
         Sensor::create($validated);
 
         return response()->json(['message' => 'Data berhasil diterima'], 200);
+    }
+
+        public function getTrainData($train)
+    {
+        $data = Sensor::orderBy('id', 'desc')->value("train{$train}") ?? 0;
+
+        return response()->json(['train' => $data]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        // Ambil data dari request
+        $train = $request->input('train'); // e.g., 'checkboxTrain1'
+        $status = $request->input('status'); // true atau false
+        if ($status == 'true') {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        ToggelSensor::updateOrCreate([
+            'train' => $train], [
+            'status' => $status,
+        ]);
+
+        return response()->json([
+            'message' => "Status $train berhasil diperbarui menjadi $status",
+        ]);
     }
 
 }

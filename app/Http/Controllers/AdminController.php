@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\Rules;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -31,5 +32,25 @@ class AdminController extends Controller
         ]);
 
         return redirect()->back()->with('added', true);
+    }
+
+     // Fungsi untuk menghapus user
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json(['success' => true, 'message' => 'User berhasil dihapus.']);
+    }
+
+    // Fungsi untuk mereset password user
+    public function reset($id)
+    {
+        $user = User::findOrFail($id);
+        $newPassword = Str::random(10);
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        return response()->json(['success' => true, 'newPassword' => $newPassword]);
     }
 }

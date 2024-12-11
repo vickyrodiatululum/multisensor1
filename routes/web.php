@@ -10,6 +10,8 @@ use App\Http\Controllers\ReportOzonController;
 
 Route::middleware('auth')->group(function (){
     Route::get('/', [SensorController::class, 'index'])->name('dashboard');
+    Route::get('/get-train/{train}', [SensorController::class, 'getTrainData']);
+    Route::post('/update-train-status', [SensorController::class, 'updateStatus']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -17,7 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 Route::middleware('auth')->group(function () {
     Route::get('/report', [ReportOzonController::class, 'index'])->name('report.index');
     Route::post('/report', [ReportOzonController::class, 'store'])->name('report.store');
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware([IsAdmin::class])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::post('/admin/create', [AdminController::class, 'store'])->name('admin.store');
+    Route::post('/admin/{id}/reset', [AdminController::class, 'reset'])->name('admin.reset');
+    Route::delete('/user/{id}', [AdminController::class, 'delete']);
 });
 
 

@@ -237,8 +237,8 @@
                             @foreach ($dataReports as $train => $reports)
                                 <div class="train mb-4">
                                     <h2 class="font-semibold text-xl">Tabel Report Train {{ $train }}</h2>
-                                    <div class="table-responsive w-full rounded-md border shadow">
-                                        <table class="table table-hover text-center">
+                                    <div class="table-responsive w-full rounded-md border shadow py-4">
+                                        <table class="table table-hover table-striped table-bordered zero-configuration">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th rowspan="2">Tanggal & Waktu</th>
@@ -293,3 +293,13 @@
         </div>
     </div>
 </x-app-layout>
+
+<script src="{{ asset('plugins/common/common.min.js') }}"></script>
+<script src="{{ asset('js/custom.min.js') }}"></script>
+<script src="{{ asset('js/settings.js') }}"></script>
+<script src="{{ asset('js/gleek.js') }}"></script>
+<script src="{{ asset('js/styleSwitcher.js') }}"></script>
+
+<script src="{{ asset('./plugins/tables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('./plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('./plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
