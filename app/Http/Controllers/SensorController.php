@@ -39,7 +39,8 @@ class SensorController extends Controller
         $status4 = ToggelSensor::where('train', 4)->value('status');
 
         if ($status1 == 1 && $validated['train1'] <=80 || $status2 == 1 && $validated['train2'] <=80 || $status3 == 1 && $validated['train3'] <=80 || $status4 == 1 && $validated['train4'] <=80) {
-            $chatId = '1331899906'; // Replace with your chat ID
+
+            $chatId = '-4672842503'; // Replace with your chat ID
             $message = '⚠️ Peringatan: Intensitas lampu ' . $validated['train1'] .' - ' . $validated['train2'] . ' - ' . $validated['train3'] . ' - ' . $validated['train4'] . ' Segera lakukan perbaikan!';
             Telegram::sendMessage(['chat_id' => $chatId, 'text' => $message]);
         }
