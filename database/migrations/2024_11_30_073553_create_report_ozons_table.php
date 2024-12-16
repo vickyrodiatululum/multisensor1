@@ -27,9 +27,12 @@ return new class extends Migration
             $table->float('lampu_uv');
             $table->float('voltase');
             $table->float('ampere');
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
+
     }
 
     /**

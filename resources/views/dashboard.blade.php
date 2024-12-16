@@ -6,13 +6,16 @@
                 <div class="card min-w-40 max-w-68">
                     <div class="flex justify-between p-2.5 font-semibold text-xl flex-wrap">
                         <h1>Train {{ $train }}</h1>
+                        @can('admin-access') 
                         <input type="checkbox" id="checkboxTrain{{ $train }}"
                             {{ $data['status'] == 1 ? 'checked' : '' }}>
                         <label for="checkboxTrain{{ $train }}" class="toggleSwitch"></label>
+                        @endcan
                     </div>
                     <div class="card-body">
-                        <h1 class="font-bold text-5xl">
-                            <span id="train{{ $train }}">{{ $data['latest'] }}</span>
+                        <h1 class="flex justify-center font-bold text-5xl items-start">
+                            <span id="train{{ $train }}">{{ $data['latest'] }}</span><span
+                                class="text-xl">%</span>
                         </h1>
                     </div>
                 </div>
@@ -44,7 +47,7 @@
     $(document).ready(function() {
         $('input[type="checkbox"]').change(function() {
             let trainId = $(this).attr('id').replace('checkboxTrain',
-            ''); // Ambil nomor train dari ID checkbox
+                ''); // Ambil nomor train dari ID checkbox
             let status = $(this).is(':checked'); // Status checkbox (true jika dicentang)
 
             // Kirim data menggunakan AJAX

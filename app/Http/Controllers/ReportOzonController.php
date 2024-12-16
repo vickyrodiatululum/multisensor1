@@ -18,7 +18,7 @@ class ReportOzonController extends Controller
         // for ($train = 1; $train <= 4; $train++) {
         //     $dataReports[$train] = report_ozon::where('train', $train)->get();
         // }
-        $dataReports = report_ozon::whereIn('train', [1, 2, 3, 4])
+        $dataReports = report_ozon::with('user')->whereIn('train', [1, 2, 3, 4])
         ->get()
         ->groupBy('train');
 

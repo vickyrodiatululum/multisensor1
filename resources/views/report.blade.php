@@ -254,6 +254,7 @@
                                                     <th rowspan="2">Lampu UV</th>
                                                     <th rowspan="2">Voltase</th>
                                                     <th rowspan="2">Ampere</th>
+                                                    <th rowspan="2">User</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Middle</th>
@@ -277,6 +278,7 @@
                                                         <td>{{ $report->lampu_uv }}</td>
                                                         <td>{{ $report->voltase }}</td>
                                                         <td>{{ $report->ampere }}</td>
+                                                        <td>{{ $report->user->name }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
